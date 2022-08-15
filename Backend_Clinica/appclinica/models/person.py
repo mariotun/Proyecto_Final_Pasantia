@@ -12,6 +12,7 @@ class Person(models.Model):
     cui = models.BigIntegerField(); ''',choices=component''' 
     names = models.CharField(max_length=30)
     last_names = models.CharField(max_length=30)
+    phone_number = models.IntegerField(default=00000000)
     address = models.CharField(max_length=100)
     age = models.IntegerField()
     birthday = models.DateField()
@@ -40,7 +41,7 @@ class Client(Person):
     status = models.BooleanField(default=True)
 
     def __str__(self):
-        return f'Carrera: {self.carrera}'
+        return f'{self.names}'
 
 
 class Employee(Person):
@@ -51,6 +52,6 @@ class Employee(Person):
     status = models.BooleanField(default=True)
 
     def __str__(self):
-        return f'Professional: {self.professional}'
+        return f'{self.professional}: {self.names}'
 
 

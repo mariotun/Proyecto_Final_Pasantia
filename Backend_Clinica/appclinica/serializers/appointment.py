@@ -16,6 +16,25 @@ class AppointmentSerializer(serializers.ModelSerializer):
         model = Appointment
         fields = '__all__'
 
+    def to_representation(self,instance):
+        return{
+            "id": instance.id,
+            "date": instance.date,
+            "hour": instance.hour,
+            "status": instance.status,
+            "client": {
+                "names": instance.client.names,
+                "phone_number": instance.client.phone_number
+            },
+            "employee": {
+                "names": instance.employee.names,
+                "age": instance.employee.age,
+                "professional": instance.employee.professional.name
+            }
+
+        }
+
+        
 class AbsenceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Absence

@@ -10,7 +10,7 @@ class Medical_Record(models.Model):
     asistencia = (('Asistio','asistio'),('No Asistio','no asistio'),('Atrasado','atrasado'))
     date = models.DateField()
     hour = models.TimeField()
-    type_care = models.CharField(max_length=10,choices=atencion) #tipo cuidado
+    type_care = models.CharField(max_length=15,choices=atencion) #tipo cuidado
     part_treated = models.CharField(max_length=30) #pieza/parte a tratar
     surface = models.CharField(max_length=5,choices=superficie) #superficie
     indications = models.CharField(max_length=300)

@@ -13,7 +13,7 @@ class Diagnostic(models.Model):
     status= models.BooleanField(default=True)   
 
     def __str__(self):
-        return f'Diagnostic: {self.name}'
+        return f'{self.name} - {self.client.names}'
 
 
 class Medical_Treatment(models.Model):
