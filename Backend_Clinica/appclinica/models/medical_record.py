@@ -1,7 +1,11 @@
+from http import client
 from django.db import models
 
 from .diagnostic import Diagnostic
 from .person import Client
+from .appointment import Absence,Backwardness,Appointment
+
+from datetime import datetime
 
 class Medical_Record(models.Model):
     atencion = (('Urgencia','urgencia'),('Tratamiento','tratamiento'))
@@ -21,4 +25,32 @@ class Medical_Record(models.Model):
     client = models.ForeignKey(Client,on_delete=models.CASCADE)
     status = models.BooleanField(default=True)
 
-    
+    def asignar_asistencia(self):
+        now = datetime.now()
+        estado = self.attendance_status
+        # datos_cita = Appointment.objects.get(date=now.date())
+        # print("---> Cita: ",datos_cita)
+        if estado == 'No Asistio':
+            Absence.objects.create(
+                date= now.date(),
+                hour= now.time(),
+                status= True,
+                description= f'Tratamiento de {self.client.names}',
+                client= self.client,
+                employee= self.diagnostic.employee
+            )
+           # ausencia.save(force_insert=True)
+        
+        elif estado == 'Atrasado':
+            Backwardness.objects.create(
+                date= now.date(),
+                hour= now.time(),
+                status= True,
+                description= f'Tratamiento de {self.client.names}',
+                client= self.client,
+                employee= self.diagnostic.employee
+            )
+
+    def save(self,*args,**kwargs):
+        self.asignar_asistencia()
+        #super(Medical_Record,self).save(*args,**kwargs)
