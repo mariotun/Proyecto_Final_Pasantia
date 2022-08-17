@@ -1,3 +1,5 @@
 Backend_Clinica/db.sqlite3
 Backend_Clinica/appclinica/migrations
 *__pycache__
+
+node_modules
