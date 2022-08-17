@@ -8,6 +8,8 @@ from .viewsets.appointment import AppointmentViewSet,AbsenceViewSet,Backwardness
 from .viewsets.diagnostic import DiagnosticViewSet,Diagnostic_DetailViewSet,Medical_TreatmentViewSet
 from .viewsets.medical_record import Medical_RecordViewSet
 
+from .viewsets.diagnostic import OperacionesDiagnosticoView
+
 router = DefaultRouter()
 
 router.register(r'client',ClientViewSet)
@@ -26,5 +28,5 @@ router.register(r'medicalrecord',Medical_RecordViewSet)
 urlpatterns = router.urls
 
 urlpatterns += [
-    #path('componentetipo/',ComponenteTipoView.as_view(),name='ComponenteOperations')
+    path('peopleserved/',OperacionesDiagnosticoView.as_view())
 ]
