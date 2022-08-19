@@ -1,6 +1,35 @@
+import React, { useState, useEffect } from 'react'
 
-export function EditClient(){
+export function EditClient(props){
+
+    useEffect(() => {
+        setUser(props.currentUser)
+    }, [props])
+
+    const [user, setUser] = useState(props.currentUser)
+
+    const handleInputChange = event => {
+        const { name, value } = event.target
+
+        setUser({ ...user, [name]: value })
+    }
+
     return(
-        <h1>Form client</h1>
+        <form
+        onSubmit={event => {
+            event.preventDefault()
+
+            props.updateUser(user.id, user)
+        }}
+        >
+        <label>Name</label>
+        <input type="text" name="name" value={user.name} onChange={handleInputChange} />
+        <label>Username</label>
+        <input type="text" name="username" value={user.username} onChange={handleInputChange} />
+        <button>Update user</button>
+        <button onClick={() => props.setEditing(false)} className="button muted-button">
+            Cancel
+        </button>
+        </form>
     )
 }

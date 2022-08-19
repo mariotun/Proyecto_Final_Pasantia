@@ -1,21 +1,25 @@
-import React from 'react';
+import React from 'react'
 import { useForm } from 'react-hook-form'
 
-export function AddClient(props){
+export function EditForm2(props){
 
-    const {register, errors, handleSubmit} = useForm();
+    const {register, errors, handleSubmit, setValue} = useForm({
+        defaultValues: props.currentUser
+    });
+
+   // setValue('name', props.currentUser.name)
+   // setValue('username', props.currentUser.username)
 
     const onSubmit = (data, e) => {
-        //data.id = null
-        console.log(data)
-        props.addUser(data)
-        e.target.reset();
+        //data.id = props.currentUser.id
+        console.log(data,"ID:",props.currentUser.id)
+        props.updateUser(props.currentUser.id, data)//regresamos los datos ya actualizados
+        e.target.reset()
     }
 
     return(
-        <div className='form-client'>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div className='form-input'>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <div className='form-input'>
                     <label>CUI</label>
                     <input type="number" {...register('cui',{required: {value: true, message: 'Valor requerido'}})}/>
                     <div>{errors?.cui?.message}</div>
@@ -70,9 +74,9 @@ export function AddClient(props){
                     <input type="date" {...register('input_date',{required: {value: true, message: 'Valor requerido'}})}/>
                     <div>{errors?.input_date?.message}</div>
                 </div>
-                
-                <button type="submit">Add new client</button>
-            </form>
-        </div>
+
+            <button type="submit">Edit user</button>
+            <button onClick={() => props.setEditing(false)} className="button muted-button">Cancel</button>
+        </form>
     )
 }
