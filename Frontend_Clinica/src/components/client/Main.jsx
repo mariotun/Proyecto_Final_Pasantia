@@ -93,12 +93,11 @@ export function MainClient(){
 
     return(
         <div className="container">
-            <h1>CRUD App with Hooks</h1>
             <div className="flex-row">
                 <div className="flex-large">
                 {editing ? (
                 <div>
-                    <h2>Edit user</h2>
+                    <h2 className='text-center'>Edit Client</h2>
                     <EditForm2 
                     setEditing={setEditing} //estado=false al presionar el boton cancelar
                     currentUser={currentUser} // contiene los datos del usuario seleccionado en la tabla
@@ -107,13 +106,12 @@ export function MainClient(){
                 </div>
                 ) : (
                 <div>
-                    <h2>Add user</h2>
+                    <h2 className='text-center'>Add Client</h2>
                     <AddClient addUser={addUser}  />
                 </div>
                 )}
             </div>
-                <div className="flex-large">
-                <h2>View users</h2>
+                <div className="flex-large m-5">
                 <TableClient 
                     users_prop={listClient} 
                     deleteUser={deleteUser} //obtine el id del usuario seleccionado
