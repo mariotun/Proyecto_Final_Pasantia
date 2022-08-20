@@ -19,9 +19,17 @@ class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
 
+# ********************************************************
 class ValidPersonView(generics.ListAPIView):
     serializer_class = ClientSerializer
 
     def get_queryset(self): 
         clients = Client.objects.filter(status=True)
+        return clients
+
+class ValidProfessionalView(generics.ListAPIView):
+    serializer_class = ProfessionalSerializer
+
+    def get_queryset(self): 
+        clients = Professional.objects.filter(status=True)
         return clients

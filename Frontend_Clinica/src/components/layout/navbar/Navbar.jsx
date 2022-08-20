@@ -18,7 +18,7 @@ export function Navbar(){
                 <Link className="nav-link" to="/">User</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/">Professional</Link>
+                <Link className="nav-link" to="/professional">Professional</Link>
               </li>
             
             </ul>
