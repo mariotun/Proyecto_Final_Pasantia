@@ -9,7 +9,7 @@ from .viewsets.diagnostic import DiagnosticViewSet,Diagnostic_DetailViewSet,Medi
 from .viewsets.medical_record import Medical_RecordViewSet
 
 from .viewsets.diagnostic import OperacionesDiagnosticoView
-from .viewsets.person import ValidPersonView,ValidProfessionalView
+from .viewsets.person import ValidPersonView,ValidProfessionalView,ValidEmployeeView
 
 router = DefaultRouter()
 
@@ -31,5 +31,6 @@ urlpatterns = router.urls
 urlpatterns += [
     path('peopleserved/',OperacionesDiagnosticoView.as_view()),
     path('validclient/',ValidPersonView.as_view()),
-    path('validprofess/',ValidProfessionalView.as_view())
+    path('validprofess/',ValidProfessionalView.as_view()),
+    path('validuser/',ValidEmployeeView.as_view())
 ]

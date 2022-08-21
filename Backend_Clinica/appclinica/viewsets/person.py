@@ -33,3 +33,10 @@ class ValidProfessionalView(generics.ListAPIView):
     def get_queryset(self): 
         clients = Professional.objects.filter(status=True)
         return clients
+
+class ValidEmployeeView(generics.ListAPIView):
+    serializer_class = EmployeeSerializer
+
+    def get_queryset(self): 
+        employee = Employee.objects.filter(status=True)
+        return employee
