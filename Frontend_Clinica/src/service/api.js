@@ -1,7 +1,7 @@
 const ruta = "http://localhost:8000/api/v1";
 
 export const methodGet = async (endpoint) => {
-    const response = await fetch(`${ruta}/${endpoint}/`);
+    const response = await fetch(`${ruta}/${endpoint}`);
     const data = await response.json();
     //console.log("api:",data)
     return data;

@@ -1,5 +1,5 @@
 import {Layout} from '../layout/Layout'
-import {MainClient} from '../client/Main'
+import {MainClient} from '../admin/client/Main'
 
 export function ClientContainer(){
 

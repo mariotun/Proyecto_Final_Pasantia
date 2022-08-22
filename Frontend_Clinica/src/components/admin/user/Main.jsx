@@ -1,59 +1,52 @@
 import React, {useState,useEffect} from 'react';
-import {AddClient} from './AddForm'
-import {EditForm2} from './EditForms2'
-import {TableClient} from './Table'
-import {methodPost,methodGet,methodPut} from '../../service/api.js'
+import {AddUser} from './AddUser'
+import {EditUser} from './EditUser'
+import {TableUser} from './TableUser'
+import {methodPost,methodGet,methodPut} from '../../../service/api.js'
 
 
-export function MainClient(){
+export function MainUser(){
 
-        // Agregar usuarios
-    const usersData = [
-        { id: 1, name: 'Tania', username: 'floppydiskette' },
-        { id: 2, name: 'Craig', username: 'siliconeidolon' },
-        { id: 3, name: 'Ben', username: 'benisphere' },
-    ]
-
-    //const [users, setUsers] = useState(usersData)
     const [listClient,serListClient] = useState([])
     const [reloadUsers, setReloadUsers] = useState(false)
-    const [users,setUsers] = useState({
-        id:'',
-        cui: '',
-        names: '',
-        last_names: '',
-        phone_number: '',
-        address: '',
-        age: '',
-        birthday: '',
-        carrera: '',
-        fono: '',
-        prevision: '',
-        input_date: '',
-        status: true
-    })
-
-
+  
     const handleListClient = async ()=>{
-        const listado = await methodGet('validclient')
+        const listado = await methodGet('validuser')
         serListClient(listado)
     }
+    //-----------------------------------
+    const [listProfessional,setListProfessional] = useState([])
+    const handleListProfessional = async ()=>{
+        const listado = await methodGet('validprofess')
+        setListProfessional(listado)
+        //console.log('--->', listado[0].name)
+    }
+    const [selectedProfess, setSelectedProfess] = useState('');
+    const handleStatusChange = e => {
+        setSelectedProfess(e.target.value);
+        console.log("seleccionaste: ",e.target.value)
+    }
+    //-----------------------------------
     useEffect( ()=>{
         handleListClient()
+        handleListProfessional()
         setReloadUsers(false)
      },[reloadUsers]);
 
 
     const addUser = async (user) => {
         user.status = true
-        const result = await methodPost('client',user)
+        user.professional = selectedProfess
+        const result = await methodPost('employee',user)
         setReloadUsers(true)
     }
 
     // Eliminar usuario
     const deleteUser = async user_delete => {
+        //console.log('delete: ',user_delete)
         user_delete.status=false
-        const result = await methodPut(`client/${user_delete.id}`,user_delete)
+        user_delete.professional= idProfessional(listProfessional,user_delete.professional)
+        const result = await methodPut(`employee/${user_delete.id}`,user_delete)
         setReloadUsers(true)//renderizamos el componente de la tabla de usuarios
     }
 
@@ -64,8 +57,8 @@ export function MainClient(){
     const [currentUser, setCurrentUser] = useState(initialFormState)
 
     const editRow = user_edit => {//muestra los datos en el formulario
-        //console.log('--->',user_edit.id)
         setEditing(true) 
+        //console.log(selectedProfess)
         setCurrentUser({ 
             id: user_edit.id,
             cui: user_edit.cui,
@@ -75,9 +68,9 @@ export function MainClient(){
             address: user_edit.address,
             age: user_edit.age,
             birthday: user_edit.birthday,
-            carrera: user_edit.carrera,
-            fono: user_edit.fono,
-            prevision: user_edit.prevision,
+            email: user_edit.email,
+            password: user_edit.password,
+            professional: selectedProfess,
             input_date: user_edit.input_date,
             status: user_edit.status
         })
@@ -85,11 +78,19 @@ export function MainClient(){
 
     const updateUser = async (id, updatedUser) => {
         setEditing(false)//volvemos al formulario para crear un usuario
-        const result = await methodPut(`client/${id}`,updatedUser)
+        const result = await methodPut(`employee/${id}`,updatedUser)
         setReloadUsers(true)//renderizamos el componente de la tabla de usuarios
-        //setUsers(users.map(user => (user.id === id ? updatedUser : user)))
     }
 
+    function idProfessional(lista,name){
+        //console.log('lista: ',lista, 'name:',name.trim())
+        for(var i=0; i<lista.length; i++){
+          //  console.log('for:',lista[0].name)
+            if(lista[i].name == name){
+                return lista[i].id
+            }
+        }
+    }
 
     return(
         <div className="container">
@@ -97,22 +98,24 @@ export function MainClient(){
                 <div className="flex-large">
                 {editing ? (
                 <div>
-                    <h2 className='text-center'>Edit Client</h2>
-                    <EditForm2 
+                    <h2 className='text-center'>Edit User</h2>
+                    <EditUser 
                     setEditing={setEditing} //estado=false al presionar el boton cancelar
                     currentUser={currentUser} // contiene los datos del usuario seleccionado en la tabla
-                    updateUser={updateUser} //contiene los datos ya actualizados 
+                    updateUser={updateUser} //contiene los datos ya actualizados
+                    professionalList={listProfessional}
+                    selected={handleStatusChange} 
                     />
                 </div>
                 ) : (
                 <div>
-                    <h2 className='text-center'>Add Client</h2>
-                    <AddClient addUser={addUser}  />
+                    <h2 className='text-center'>Add User</h2>
+                    <AddUser addUser={addUser} professionalList={listProfessional} selected={handleStatusChange}/>
                 </div>
                 )}
             </div>
                 <div className="flex-large m-5">
-                <TableClient 
+                <TableUser 
                     users_prop={listClient} 
                     deleteUser={deleteUser} //obtine el id del usuario seleccionado
                     editRow_prop={editRow} //obtiene el usuario seleccionado y lo muestra en el formulario 

@@ -4,7 +4,7 @@ export function Navbar(){
     return(
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark text-white h5" aria-label="Eighth navbar example">
         <div className="container">
-          <Link className="navbar-brand" to="/">ADMIN</Link>
+          <Link className="navbar-brand" to="/admin">ADMIN</Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -12,18 +12,22 @@ export function Navbar(){
           <div className="collapse navbar-collapse " id="navbarsExample07">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
               <li className="nav-item">
-                <Link className="nav-link" to="/client">Client</Link>
+                <Link className="nav-link" to="/admin/client">Client</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/user">User</Link>
+                <Link className="nav-link" to="/admin/user">User</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/professional">Professional</Link>
+                <Link className="nav-link" to="/admin/professional">Professional</Link>
               </li>
             
             </ul>
+
+            
             <form role="search">
-              <input className="form-control" type="search" placeholder="Search" aria-label="Search"/>
+            <button className="w-100 btn btn-lg btn-primary">
+            <Link className="nav-link" to="/">Log out</Link>
+            </button>
             </form>
           </div>
         </div>

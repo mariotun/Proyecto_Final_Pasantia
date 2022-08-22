@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react';
 import {AddProfessional} from './AddProfessional'
 import {EditProfessional} from './EditProfessional'
 import {TableProfessional} from './TableProfessional'
-import {methodPost,methodGet,methodPut} from '../../service/api.js'
+import {methodPost,methodGet,methodPut} from '../../../service/api.js'
 
 
 export function MainProfessional(){

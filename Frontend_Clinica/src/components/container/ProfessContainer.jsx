@@ -1,5 +1,5 @@
 import {Layout} from '../layout/Layout'
-import {MainProfessional} from '../professional/Main'
+import {MainProfessional} from '../admin/professional/Main'
 
 export function ProfessionalContainer(){
 
