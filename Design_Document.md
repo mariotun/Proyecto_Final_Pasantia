@@ -6,7 +6,7 @@ Plataforma web para gestionar las citas de una clinica de odontologia de los dif
 ### Alcance(Scope)
 
 - La aplicacion tendra acceso para un usuario administrador, para poder gestinar a los empleados y usuarios de la clinica.
-- La aplicacion tendra acceso para usuarios empleados, para poder gestionar las diferentes operaciones segun su especialidad y actividad asignado.
+- La aplicacion tendra acceso para usuarios empleados(especialistas,secretarias y asistentes), para poder gestionar las diferentes operaciones segun su especialidad y actividad asignado.
 
 #### Casos de uso
 
@@ -31,28 +31,71 @@ Plataforma web para gestionar las citas de una clinica de odontologia de los dif
 
 ### Diagramas
 Diagrama de clases
-![img](./assets/DiagramaClases_SpotPlay.png)
+![img](./assets/DiagramaClases.png)
 
-Diagrama de secuencia
 
-Diagrama de casos de uso
-
-poner diagramas de secuencia, uml, etc
 
 ### Modelo de datos
-Poner diseÃ±o de entidades, Jsons, tablas, diagramas entidad relaciÃ³n, etc..
+JSON de algunas entidades
+
+```
+Client [ 
+    { 
+        "id": 1,
+        "cui": 123456789,
+        "names": "luis carlos",
+        "last_names": "ruiz diaz",
+        "phone_number": 12345678,
+        "address": "ciudad de guatemala",
+        "age": 34,
+        "birthday": "2022-06-16",
+        "carrera": "cotador",
+        "fono": "ninguno",
+        "prevision": "ninguno",
+        "input_date": "2022-08-12",
+        "status": true
+    }
+]
+```
+```
+Professional[
+    {
+        "id": 1,
+        "name": "Odontologo",
+        "description": "Es un especialista encargado del area bucal",
+        "status": true
+    }
+]
+```
+
+```
+Diagnostic[
+    {
+        "id": 1,
+        "name": "Diagnostico 1",
+        "description": "Para un cliente frecuente",
+        "date": "2022-08-15",
+        "hour": "10:30:00",
+        "total_cost": 0,
+        "status": true,
+        "client": {
+            "names": "nicolas estuardo",
+            "phone_number": 90781232
+        },
+        "employee": {
+            "names": "paula",
+            "age": 30,
+            "professional": "Odontologo"
+        }
+    }
+]
+```
 
 ---
-## Limitaciones
-Lista de limitaciones conocidas. Puede ser en formato de lista.
-Ej.
-* Llamadas del API tienen latencia X
-* No se soporta mas de X llamadas por segundo
----
-## Costo
-DescripciÃ³n/AnÃ¡lisis de costos
-Ejemplo:
-"Considerando N usuarios diarios, M llamadas a X servicio/baseDatos/etc"
-* 1000 llamadas diarias a serverless functions. $XX.XX
-* 1000 read/write units diarias a X Database on-demand. $XX.XX
-Total: $xx.xx (al mes/dia/aÃ±o)
+## Prototipo
+Inicio de sesion y Administrador
+![img](./assets/Login_Admin.png)
+
+Formulario y Tabla de datos
+![img](./assets/Form_Table.png)
+
