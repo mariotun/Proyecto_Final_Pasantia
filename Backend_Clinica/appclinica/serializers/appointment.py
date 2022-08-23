@@ -23,10 +23,12 @@ class AppointmentSerializer(serializers.ModelSerializer):
             "hour": instance.hour,
             "status": instance.status,
             "client": {
+                "id": instance.client.id,
                 "names": instance.client.names,
                 "phone_number": instance.client.phone_number
             },
             "employee": {
+                "id": instance.employee.id,
                 "names": instance.employee.names,
                 "age": instance.employee.age,
                 "professional": instance.employee.professional.name
